@@ -33,6 +33,7 @@ const DUMMY_POSTS = [
     date: '2022-02-10',
   },
 ];
+
 const HomePage = () => {
   return (
     <Fragment>
