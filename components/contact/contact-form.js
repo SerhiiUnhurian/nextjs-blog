@@ -27,14 +27,13 @@ const ContactForm = () => {
       })
       .then(data => {
         alert(data.message);
+        name.value = '';
+        email.value = '';
+        message.value = '';
       })
       .catch(error => {
         alert(error.message);
       });
-
-    name.value = '';
-    email.value = '';
-    message.value = '';
   };
 
   return (
