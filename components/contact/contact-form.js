@@ -1,6 +1,19 @@
+import { useState, useEffect } from 'react';
+
 import cls from './contact-form.module.css';
+import Notification from '../ui/notification';
 
 const ContactForm = () => {
+  const [notification, setNotification] = useState(null);
+
+  useEffect(() => {
+    if (notification) {
+      const timer = setTimeout(() => setNotification(null), 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [notification]);
+
   const handleSendMessage = e => {
     e.preventDefault();
 
@@ -26,13 +39,22 @@ const ContactForm = () => {
         });
       })
       .then(data => {
-        alert(data.message);
+        setNotification({
+          title: 'Success!',
+          message: data.message,
+          status: 'success',
+        });
+
         name.value = '';
         email.value = '';
         message.value = '';
       })
       .catch(error => {
-        alert(error.message);
+        setNotification({
+          title: 'Error!',
+          message: error.message,
+          status: 'error',
+        });
       });
   };
 
@@ -58,6 +80,7 @@ const ContactForm = () => {
           <button>Send Message</button>
         </div>
       </form>
+      {notification && <Notification {...notification} />}
     </section>
   );
 };
